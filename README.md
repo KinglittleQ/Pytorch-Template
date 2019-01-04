@@ -74,6 +74,8 @@ def main():
     tensorboard --logdir example/LeNet/log
     ```
 
-    ![exmaple-lenet](readme-pic/example-lenet1.png)
+    | train_loss                                      | eval_error                                      |
+    | ----------------------------------------------- | ----------------------------------------------- |
+    | ![exmaple-lenet](readme-pic/example-lenet2.png) | ![exmaple-lenet](readme-pic/example-lenet1.png) |
 
-![exmaple-lenet](readme-pic/example-lenet2.png)
+
