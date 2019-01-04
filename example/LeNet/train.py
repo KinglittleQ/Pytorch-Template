@@ -18,6 +18,7 @@ device = torch.device('cpu')
 log_dir = 'log'
 ckpt_dir = 'checkpoint'
 
+
 class Model(TemplateModel):
 
     def __init__(self, args=None):

@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='pytorch-template',
+setup(name='torchT',
       version='0.1.0',
       description='A clean and beautiful template for pytorch',
       url='https://github.com/KinglittleQ/Pytorch-Template',

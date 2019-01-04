@@ -1,20 +1,39 @@
-# A clean and beautiful template for pytorch
+# torchT: A clean and beautiful template for pytorch
 
-## How to use
 
-### 1) Modify `template.py`
+
+## 1. Install
+
+#### 1) Install from source code
+
+``` shell
+pip install .
+```
+
+or
+
+```
+pip install -e .
+```
+
+#### 2) Install from PyPi
+
+TODO
+
+## 2. How to use
+
+### 1) Inherit `TemplateModel`
 
 Replace the content in the `__init__`method. 
 
 ``` python
-class Model():
+from torchT import TemplateModel
+
+class Model(TemplateModel):
 
     def __init__(self, args):
-        self.writer = tX.SummaryWriter(log_dir=None, comment='')
-        self.train_logger = None  # not neccessary
-        self.eval_logger = None  # not neccessary
-        self.args = args  # not neccessary
-
+        # ============== neccessary ===============
+        self.writer = None
         self.step = 0
         self.epoch = 0
         self.best_error = float('Inf')
@@ -31,6 +50,14 @@ class Model():
 
         self.ckpt_dir = None
         self.log_per_step = None
+        
+        # ============== not neccessary ===============
+        self.train_logger = None
+        self.eval_logger = None
+        self.args = None
+        
+        # call it to check all members have been intiated
+        self.check_init()
 ```
 
 
@@ -65,9 +92,50 @@ for i in range(n_epochs):
         model.eval()
 ```
 
+### 4) Further specialization
 
+Write your own `train_loss()`and`eval_error()`member methods.
 
-## Example
+Default methods:
+
+``` python
+def train_loss(self, batch):
+    x, y = batch
+    x = x.to(self.device)
+    y = y.to(self.device)
+    pred = self.model(x)
+    loss = self.criterion(pred, y)
+
+    return loss, None
+
+def eval_error(self):
+    xs, ys, preds = [], [], []
+    for batch in self.test_loader:
+        x, y = batch
+        x = x.to(self.device)
+        y = y.to(self.device)
+        pred = self.model(x)
+
+        xs.append(x.cpu())
+        ys.append(y.cpu())
+        preds.append(pred.cpu())
+
+    xs = torch.cat(xs, dim=0)
+    ys = torch.cat(ys, dim=0)
+    preds = torch.cat(preds, dim=0)
+    error = self.metric(preds, ys)
+
+    return error, None
+```
+
+**How to write your own methods**:
+
+- `train_loss`recieves a `batch`from dataloader as input, return `loss` and `others`which can be used as input for `train_logger`
+- `eval_error`return `error` of the whole test dataset and `others`which can be used as input for `eval_logger`
+
+You can refer to the [source code](torchT/template.py) for more details.
+
+## 3. Example
 
 - [LeNet](example/LeNet): Train a LeNet to classify MNIST handwriting digits.
 
