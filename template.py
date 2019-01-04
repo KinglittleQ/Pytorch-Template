@@ -7,9 +7,9 @@ class Model():
 
     def __init__(self, args):
         self.writer = tX.SummaryWriter(log_dir=None, comment='')
-        self.train_logger = None
-        self.eval_logger = None
-        self.args = args
+        self.train_logger = None  # not neccessary
+        self.eval_logger = None  # not neccessary
+        self.args = args  # not neccessary
 
         self.step = 0
         self.epoch = 0
