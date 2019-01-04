@@ -35,9 +35,9 @@ class Model():
 
 
 
-### 2) Write traning loop
+### 2) Write training loop
 
-And then all you need is to write a little traning loop like this:
+And then all you need is to write a little training loop like this:
 
 ``` python
 model = Model()
@@ -50,9 +50,9 @@ for epoch in range(n_epochs):
 print('Done!!!')
 ```
 
-### 3) Resume traning
+### 3) Resume training
 
-Resume traning is very convenient, just need to load the saved model.
+Resume training is very convenient, just need to load the saved model.
 
 ``` python
 model = Model()
@@ -69,7 +69,7 @@ for i in range(n_epochs):
 
 ## Example
 
-- [LeNet](example/LeNet): Train a LeNet to classify MNIST handwrting digits.
+- [LeNet](example/LeNet): Train a LeNet to classify MNIST handwriting digits.
 
     - Training procedure:
 
