@@ -137,9 +137,9 @@ def metric(pred, target):
 def main():
     model = Model()
 
-    for epoch in range(n_epochs):
+    for i in range(n_epochs):
         model.train()
-        if (epoch + 1) % eval_per_epoch == 0:
+        if model.epoch % eval_per_epoch == 0:
             model.eval()
 
     print('Done!!!')
