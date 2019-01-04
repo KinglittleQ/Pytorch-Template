@@ -141,3 +141,6 @@ class TemplateModel():
     def inference(self, x):
         x = x.to(self.device)
         return self.model(x)
+
+    def num_parameters(self):
+        return sum([p.data.nelement() for p in self.model.parameters()])

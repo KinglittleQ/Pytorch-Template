@@ -11,7 +11,7 @@ from torchT import TemplateModel
 
 lr = 0.001
 batch_size = 16
-n_epochs = 1
+n_epochs = 2
 eval_per_epoch = 1
 log_per_step = 100
 device = torch.device('cpu')
