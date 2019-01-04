@@ -4,3 +4,4 @@ __pycache__/
 example/LeNet/MNIST
 example/LeNet/log
 example/LeNet/checkpoint
+pytorch_template.egg-info
