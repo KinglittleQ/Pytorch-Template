@@ -51,3 +51,29 @@ def main():
 
 - [LeNet](example/LeNet): Train a LeNet to classify MNIST handwrting digits.
 
+    Training procedure:
+
+    ``` shell
+    ......
+    epoch 1 step 3400   loss 0.0434
+    epoch 1 step 3500   loss 0.0331
+    epoch 1 step 3600   loss 0.00188
+    epoch 1 step 3700   loss 0.00341
+    save model at ../models\best.pth.tar
+    save model at ../models\1.pth.tar
+    epoch 1 error 0.0237
+    epoch 2 step 3800   loss 0.0201
+    epoch 2 step 3900   loss 0.00523
+    epoch 2 step 4000   loss 0.0236
+    ......
+    ```
+
+    Use tensorboard to visualize the result:
+
+    ```shell
+    tensorboard --logdir example/LeNet/log
+    ```
+
+    ![exmaple-lenet](readme-pic/example-lenet1.png)
+
+![exmaple-lenet](readme-pic/example-lenet2.png)

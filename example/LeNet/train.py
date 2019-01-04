@@ -10,12 +10,12 @@ import os.path as osp
 
 lr = 0.001
 batch_size = 16
-n_epochs = 2
+n_epochs = 10
 eval_per_epoch = 1
 log_per_step = 100
 device = torch.device('cpu')
-log_dir = '../log'
-
+log_dir = 'log'
+ckpt_dir = 'checkpoint'
 
 class Model():
 
@@ -29,24 +29,24 @@ class Model():
         self.epoch = 0
         self.best_error = float('Inf')
 
-        self.model = LeNet()
+        self.device = torch.device('cpu')
+
+        self.model = LeNet().to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=lr)
         self.criterion = torch.nn.CrossEntropyLoss()
         self.metric = metric
 
         transform = tfs.Compose([tfs.ToTensor(), tfs.Normalize((0.1307,), (0.3081,))])
-        train_dataset = MNIST(root='../MNIST', train=True, transform=transform, download=True)
+        train_dataset = MNIST(root='MNIST', train=True, transform=transform, download=True)
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
-        test_dataset = MNIST(root='../MNIST', train=False, transform=transform, download=True)
+        test_dataset = MNIST(root='MNIST', train=False, transform=transform, download=True)
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
         self.train_loader = train_loader
         self.test_loader = test_loader
 
-        self.device = torch.device('cpu')
-
-        self.ckpt_dir = '../models'
+        self.ckpt_dir = ckpt_dir
         self.log_per_step = 100
         # self.eval_per_epoch = None
 
