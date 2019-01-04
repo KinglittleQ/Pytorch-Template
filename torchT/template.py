@@ -43,7 +43,7 @@ class TemplateModel():
         if not osp.exists(self.ckpt_dir):
             os.mkdir(self.ckpt_dir)
 
-    def load_state(self, fname):
+    def load_state(self, fname, optim=True):
         state = torch.load(fname)
 
         if isinstance(self.model, torch.nn.DataParallel):
@@ -51,13 +51,14 @@ class TemplateModel():
         else:
             self.model.load_state_dict(state['model'])
 
-        self.optimizer.load_state_dict(state['optimizer'])
+        if optim and 'optimizer' in state:
+            self.optimizer.load_state_dict(state['optimizer'])
         self.step = state['step']
         self.epoch = state['epoch']
         self.best_error = state['best_error']
         print('load model from {}'.format(fname))
 
-    def save_state(self, fname):
+    def save_state(self, fname, optim=True):
         state = {}
 
         if isinstance(self.model, torch.nn.DataParallel):
@@ -65,7 +66,8 @@ class TemplateModel():
         else:
             state['model'] = self.model.state_dict()
 
-        state['optimizer'] = self.optimizer.state_dict()
+        if optim:
+            state['optimizer'] = self.optimizer.state_dict()
         state['step'] = self.step
         state['epoch'] = self.epoch
         state['best_error'] = self.best_error
@@ -106,7 +108,7 @@ class TemplateModel():
 
         if error < self.best_error:
             self.best_error = error
-            self.save_state(osp.join(self.ckpt_dir, 'best.pth.tar'))
+            self.save_state(osp.join(self.ckpt_dir, 'best.pth.tar'), False)
         self.save_state(osp.join(self.ckpt_dir, '{}.pth.tar'.format(self.epoch)))
 
         self.writer.add_scalar('error', error, self.epoch)
