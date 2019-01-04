@@ -1,4 +1,5 @@
 import torch
+import os
 import os.path as osp
 
 
@@ -27,6 +28,20 @@ class TemplateModel():
         self.ckpt_dir = None
         self.log_per_step = None
         # self.eval_per_epoch = None
+
+    def check_init(self):
+        assert self.model
+        assert self.optimizer
+        assert self.criterion
+        assert self.metric
+        assert self.train_loader
+        assert self.test_loader
+        assert self.device
+        assert self.ckpt_dir
+        assert self.log_per_step
+
+        if not osp.exists(self.ckpt_dir):
+            os.mkdir(self.ckpt_dir)
 
     def load_state(self, fname):
         state = torch.load(fname)

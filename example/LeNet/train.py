@@ -11,7 +11,7 @@ from torchT import TemplateModel
 
 lr = 0.001
 batch_size = 16
-n_epochs = 10
+n_epochs = 1
 eval_per_epoch = 1
 log_per_step = 100
 device = torch.device('cpu')
@@ -52,6 +52,8 @@ class Model(TemplateModel):
         self.ckpt_dir = ckpt_dir
         self.log_per_step = log_per_step
         # self.eval_per_epoch = None
+
+        self.check_init()
 
 
 def metric(pred, target):
